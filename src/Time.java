@@ -133,14 +133,14 @@ public class Time {
         while (h > 23){
             h -= 24;
         }
-        if (this.second < sec){
-            sec = (short) (60 - sec);
-            this.second -= sec;
+        this.second -= sec;
+        while (this.second < 0){
+            this.second += 60;
             this.minute -= 1;
         }
-        if (this.minute < m){
-            m = (short) (60 - m);
-            this.minute -= m;
+        this.minute -= m;
+        while (this.minute < 0){
+            this.minute += 60;
             this.hour -= 1;
         }
         if (this.hour < h){
