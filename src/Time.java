@@ -8,9 +8,6 @@ public class Time {
     public Time() {
         this((short) 0, (short) 1, (short) 25);
     }
-    public Time(short h){
-        this(h, (short) 1, (short) 25);
-    }
 
     public Time(short h, short m){
         this(h, m, (short) 25);
@@ -100,7 +97,7 @@ public class Time {
         return sec;
     }
 
-    public Time Plus(short sec){
+    public void Plus(short sec){
         short m=0, h=0;
         while (sec>59){
             sec -= 60;
@@ -116,11 +113,9 @@ public class Time {
         this.second += sec;
         this.minute += m;
         this.hour += h;
-
-        return this;
     }
 
-    public Time Minus(short sec){
+    public void Minus(short sec){
         short m=0, h=0;
         while (sec>59){
             sec -= 60;
@@ -148,18 +143,16 @@ public class Time {
             this.minute = 0;
             this.hour = 0;
         }
-
-        return this;
     }
 
     public boolean Equals(@NotNull Time another){
         if (this.hour != another.hour){
             return false;
         }
-        if (this.minute != another.minute){
+        else if (this.minute != another.minute){
             return false;
         }
-        if (this.second != another.second){
+        else if (this.second != another.second){
             return false;
         }
 
