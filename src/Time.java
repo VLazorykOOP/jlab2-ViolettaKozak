@@ -17,42 +17,164 @@ public class Time {
     }
 
     public Time(short h, short m, short s){
-        char ho = 'y', mi = 'y', se = 'y';
-        if (h>23 || h <0){
-            ho = 'n';
+        if (s>59 || s <0){
+            while (s > 59){
+                s -= 60;
+                m += 1;
+            }
+            while (s<0){
+                s += 60;
+                m -= 1;
+            }
         }
         if (m>59 || m <0){
-            mi = 'n';
+            while (m > 59){
+                m -= 60;
+                h += 1;
+            }
+            while (m<0){
+                m += 60;
+                h -= 1;
+            }
         }
-        if (s>59 || s <0){
-            se = 'n';
+        if (h > 23 || h < 0){
+            while (h > 23){
+                h -= 24;
+            }
+            while (h<0){
+                h += 24;
+            }
         }
-        switch (ho){
-            case 'y': this.hour = h;
-            case 'n': this.hour = 0;
-        }
-        switch (mi){
-            case 'y': this.minute = m;
-            case 'n': this.minute = 0;
-        }
-        switch (se){
-            case 'y': this.second = s;
-            case 'n': this.second = 0;
-        }
+        this.second = s;
+        this.minute = m;
+        this.hour = h;
     }
     public Time(@NotNull String str){
         String[] value = str.split(":");
+        short h=0, m=0, s=0;
         if (value.length >= 2) {
-            this.hour = Short.parseShort(value[0]);
-            this.minute = Short.parseShort(value[1]);
+            h = Short.parseShort(value[0]);
+            m = Short.parseShort(value[1]);
             if (value.length == 3) {
-                this.second = Short.parseShort(value[2]);
+                s = Short.parseShort(value[2]);
             }
         } else {
             System.out.println("Неповні дані");
-            this.hour = 0;
-            this.minute = 0;
-            this.second = 0;
         }
+        if (s>59 || s <0){
+            while (s > 59){
+                s -= 60;
+                m += 1;
+            }
+            while (s<0){
+                s += 60;
+                m -= 1;
+            }
+        }
+        if (m>59 || m <0){
+            while (m > 59){
+                m -= 60;
+                h += 1;
+            }
+            while (m<0){
+                m += 60;
+                h -= 1;
+            }
+        }
+        if (h > 23 || h < 0){
+            while (h > 23){
+                h -= 24;
+            }
+            while (h<0){
+                h += 24;
+            }
+        }
+        this.second = s;
+        this.minute = m;
+        this.hour = h;
+    }
+
+    public short Difference(@NotNull Time another){
+        short sec;
+        sec = (short) ((this.hour - another.hour)*360 + (this.minute-another.minute)*60 + (this.second-another.second));
+        return sec;
+    }
+
+    public Time Plus(short sec){
+        short m=0, h=0;
+        while (sec>59){
+            sec -= 60;
+            m += 1;
+        }
+        while (m > 59){
+            m -= 60;
+            h += 1;
+        }
+        while (h > 23){
+            h -= 24;
+        }
+        this.second += sec;
+        this.minute += m;
+        this.hour += h;
+
+        return this;
+    }
+
+    public Time Minus(short sec){
+        short m=0, h=0;
+        while (sec>59){
+            sec -= 60;
+            m += 1;
+        }
+        while (m > 59){
+            m -= 60;
+            h += 1;
+        }
+        while (h > 23){
+            h -= 24;
+        }
+        if (this.second < sec){
+            sec = (short) (60 - sec);
+            this.second -= sec;
+            this.minute -= 1;
+        }
+        if (this.minute < m){
+            m = (short) (60 - m);
+            this.minute -= m;
+            this.hour -= 1;
+        }
+        if (this.hour < h){
+            this.second = 0;
+            this.minute = 0;
+            this.hour = 0;
+        }
+
+        return this;
+    }
+
+    public boolean Equals(@NotNull Time another){
+        if (this.hour != another.hour){
+            return false;
+        }
+        if (this.minute != another.minute){
+            return false;
+        }
+        if (this.second != another.second){
+            return false;
+        }
+
+        return true;
+    }
+
+    public short InSeconds(){
+        return (short) (this.hour*360 + this.minute*60 + this.second);
+    }
+
+    public short InMinute(){
+        return (short) (this.hour*60 + this.minute);
+    }
+
+    public void Print(){
+        System.out.println(this.hour+":"+this.minute+":"+this.second);
     }
 }
