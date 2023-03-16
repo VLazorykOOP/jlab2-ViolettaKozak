@@ -33,5 +33,8 @@ public class Main {
         System.out.println("Чи має коло с3 в собі точку (25.6, 64.7): "+c3.containsPoint(25.6, 64.7));
         System.out.println("Перетин с2 і с3: ");
         c2.getIntersectionPoints(c3);
+
+        System.out.println("\n\nЗавдання 3\n");
+        Array.main();
     }
 }
