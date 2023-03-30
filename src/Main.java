@@ -18,7 +18,7 @@ public class Main {
 
         System.out.println("Різниця часу між t3 i t2 = "+t3.Difference(t2));
 
-        Time t = new Time(t3.hour, t3.minute, t3.second);
+        Time t = new Time(t3);
         System.out.println("Чи рівні t3 i t : "+t.Equals(t3));
 
         System.out.println("t1 в секундах = "+t1.InSeconds());

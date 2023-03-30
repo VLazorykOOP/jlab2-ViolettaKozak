@@ -9,6 +9,12 @@ public class Time {
         this((short) 0, (short) 1, (short) 25);
     }
 
+    public Time(Time other){
+        this.hour = other.hour;
+        this.minute = other.minute;
+        this.second = other.second;
+    }
+
     public Time(short h, short m){
         this(h, m, (short) 25);
     }
